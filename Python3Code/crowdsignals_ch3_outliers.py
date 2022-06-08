@@ -66,8 +66,9 @@ def main():
             # And try out all different approaches. Note that we have done some optimization
             # of the parameter values for each of the approaches by visual inspection.
             dataset = OutlierDistr.chauvenet(dataset, col, FLAGS.C)
-            DataViz.plot_binary_outliers(
-                dataset, col, col + '_outlier')
+            print(dataset[col + '_outlier'].value_counts())
+            # DataViz.plot_binary_outliers(
+            #     dataset, col, col + '_outlier')
 
     elif FLAGS.mode == 'mixture':
 
@@ -75,6 +76,7 @@ def main():
 
             print(f"Applying mixture model for column {col}")
             dataset = OutlierDistr.mixture_model(dataset, col)
+            # print(dataset[col + '_mixture'].value_counts())
             DataViz.plot_dataset(dataset, [
                                  col, col + '_mixture'], ['exact', 'exact'], ['line', 'points'])
             # This requires:
@@ -86,11 +88,13 @@ def main():
             try:
                 dataset = OutlierDist.simple_distance_based(
                     dataset, [col], 'euclidean', FLAGS.dmin, FLAGS.fmin)
-                DataViz.plot_binary_outliers(
-                    dataset, col, 'simple_dist_outlier')
+                print(dataset['simple_dist_outlier'].value_counts())
+                # DataViz.plot_binary_outliers(
+                #     dataset, col, 'simple_dist_outlier')
             except MemoryError as e:
                 print(
                     'Not enough memory available for simple distance-based outlier detection...')
+                print(e)
                 print('Skipping.')
 
     elif FLAGS.mode == 'LOF':
@@ -98,8 +102,9 @@ def main():
             try:
                 dataset = OutlierDist.local_outlier_factor(
                     dataset, [col], 'euclidean', FLAGS.K)
-                DataViz.plot_dataset(dataset, [col, 'lof'], [
-                                     'exact', 'exact'], ['line', 'points'])
+                print(dataset[col + '_outlier'].value_counts())
+                # DataViz.plot_dataset(dataset, [col, 'lof'], [
+                #                      'exact', 'exact'], ['line', 'points'])
             except MemoryError as e:
                 print('Not enough memory available for lof...')
                 print('Skipping.')
