@@ -68,11 +68,11 @@ class PrepareDatasetForLearning:
             print(dataset.isna().sum().sum())
             print(sum(dataset['class'] == self.default_label))
 
-            print(len(dataset))
-            print(len(dataset) * len(dataset.columns))
-
             dataset = dataset.dropna()
             dataset = dataset[dataset['class'] != self.default_label]
+
+            print(len(dataset))
+            print(len(dataset) * len(dataset.columns))
 
         # The features are the ones not in the class label.
         features = [dataset.columns.get_loc(x) for x in dataset.columns if x not in class_labels]
