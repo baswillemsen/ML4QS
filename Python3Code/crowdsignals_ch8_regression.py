@@ -44,7 +44,7 @@ DataViz = VisualizeDataset(__file__)
 
 # Read the result from the previous chapter, and make sure the index is of the type datetime.
 DATA_PATH = Path('./intermediate_datafiles/')
-DATASET_FNAME = 'chapter5_result.csv'
+DATASET_FNAME = 'chapter5_result_own.csv'
 
 DataViz = VisualizeDataset(__file__)
 
@@ -102,7 +102,7 @@ dftest = adfuller(dataset['hr_watch_rate'], autolag='AIC')
 
 plt.Figure(); autocorrelation_plot(dataset['hr_watch_rate'])
 DataViz.save(plt)
-plt.show()
+# plt.show()
 
 # Now let us focus on the learning part.
 
