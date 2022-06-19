@@ -102,7 +102,7 @@ dftest = adfuller(dataset['hr_watch_rate'], autolag='AIC')
 
 plt.Figure(); autocorrelation_plot(dataset['hr_watch_rate'])
 DataViz.save(plt)
-plt.show()
+# plt.show()
 
 # Now let us focus on the learning part.
 
