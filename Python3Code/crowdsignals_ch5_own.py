@@ -12,8 +12,8 @@ from Chapter5.DistanceMetrics import PersonDistanceMetricsNoOrdering
 from Chapter5.DistanceMetrics import PersonDistanceMetricsOrdering
 from Chapter5.Clustering import NonHierarchicalClustering
 from Chapter5.Clustering import HierarchicalClustering
-import util.util as util
-from util.VisualizeDataset import VisualizeDataset
+import util_own.util_own as util_own
+from util_own.VisualizeDataset_own import VisualizeDataset_own
 import sys
 import copy
 import numpy as np
@@ -37,7 +37,7 @@ def main():
         print('File not found, try to run previous crowdsignals scripts first!')
         raise e
 
-    DataViz = VisualizeDataset(__file__)
+    DataViz = VisualizeDataset_own(__file__)
 
     clusteringNH = NonHierarchicalClustering()
     clusteringH = HierarchicalClustering()
@@ -102,7 +102,7 @@ def main():
         DataViz.plot_clusters_3d(dataset_kmed, [
                                   'acc_phone_x', 'acc_phone_y', 'acc_phone_z'], 'cluster', ['label'])
         DataViz.plot_silhouette(dataset_kmed, 'cluster', 'silhouette')
-        # util.print_latex_statistics_clusters(dataset_kmed, 'cluster', [
+        # util_own.print_latex_statistics_clusters(dataset_kmed, 'cluster', [
         #                                      'gyr_phone_x', 'gyr_phone_y', 'gyr_phone_z'], 'label')
 
     # And the hierarchical clustering is the last one we try
@@ -135,7 +135,7 @@ def main():
         dataset = clusteringNH.k_means_over_instances(dataset, ['acc_phone_x', 'acc_phone_y', 'acc_phone_z'], FLAGS.k, 'default', 50, 50)
         DataViz.plot_clusters_3d(dataset, ['acc_phone_x', 'acc_phone_y', 'acc_phone_z'], 'cluster', ['label'])
         DataViz.plot_silhouette(dataset, 'cluster', 'silhouette')
-        util.print_latex_statistics_clusters(
+        util_own.print_latex_statistics_clusters(
             dataset, 'cluster', ['acc_phone_x', 'acc_phone_y', 'acc_phone_z'], 'label')
         del dataset['silhouette']
 

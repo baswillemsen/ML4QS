@@ -25,8 +25,8 @@ from Chapter7.Evaluation import ClassificationEvaluation
 from Chapter7.Evaluation import RegressionEvaluation
 from Chapter7.FeatureSelection import FeatureSelectionClassification
 from Chapter7.FeatureSelection import FeatureSelectionRegression
-from util import util
-from util.VisualizeDataset import VisualizeDataset
+from util_own import util_own
+from util_own.VisualizeDataset_own import VisualizeDataset_own
 
 # Read the result from the previous chapter, and make sure the index is of the type datetime.
 DATA_PATH = Path('./intermediate_datafiles_own/')
@@ -46,7 +46,7 @@ except IOError as e:
 dataset.index = pd.to_datetime(dataset.index)
 
 # Let us create our visualization class again.
-DataViz = VisualizeDataset(__file__)
+DataViz = VisualizeDataset_own(__file__)
 
 # Let us consider our first task, namely the prediction of the label. We consider this as a non-temporal task.
 
@@ -233,7 +233,7 @@ for i in range(0, len(possible_feature_sets)):
     performance_tr_nb = eval.accuracy(train_y, class_train_y)
     performance_te_nb = eval.accuracy(test_y, class_test_y)
 
-    scores_with_sd = util.print_table_row_performances(feature_names[i], len(selected_train_X.index), len(selected_test_X.index), [
+    scores_with_sd = util_own.print_table_row_performances(feature_names[i], len(selected_train_X.index), len(selected_test_X.index), [
                                                                                                 (overall_performance_tr_nn, overall_performance_te_nn),
                                                                                                 (overall_performance_tr_rf, overall_performance_te_rf),
                                                                                                 (overall_performance_tr_svm, overall_performance_te_svm),

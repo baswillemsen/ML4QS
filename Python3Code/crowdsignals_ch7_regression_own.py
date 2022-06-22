@@ -10,8 +10,8 @@
 from pathlib import Path
 import pandas as pd
 
-from util import util
-from util.VisualizeDataset import VisualizeDataset
+from util_own import util_own
+from util_own.VisualizeDataset_own import VisualizeDataset_own
 from Chapter7.PrepareDatasetForLearning import PrepareDatasetForLearning
 from Chapter7.LearningAlgorithms import ClassificationAlgorithms
 from Chapter7.LearningAlgorithms import RegressionAlgorithms
@@ -22,7 +22,7 @@ from Chapter7.FeatureSelection import FeatureSelectionRegression
 
 # Of course we repeat some stuff from Chapter 3, namely to load the dataset
 
-DataViz = VisualizeDataset(__file__)
+DataViz = VisualizeDataset_own(__file__)
 
 # Read the result from the previous chapter, and make sure the index is of the type datetime.
 DATA_PATH = Path('./intermediate_datafiles_own/')
@@ -71,7 +71,7 @@ fs = FeatureSelectionRegression()
 
 # First, let us consider the Pearson correlations and see whether we can select based on them.
 features, correlations = fs.pearson_selection(10, train_X[features_after_chapter_5], train_y)
-util.print_pearson_correlations(correlations)
+util_own.print_pearson_correlations(correlations)
 
 # We select the 10 features with the highest correlation.
 
@@ -179,7 +179,7 @@ for i in range(0, len(possible_feature_sets)):
                           (performance_tr_svm, performance_tr_svm_std, performance_te_svm, performance_te_svm_std),
                       (performance_tr_knn, performance_tr_knn_std, performance_te_knn, performance_te_knn_std),
                       (performance_tr_dt, performance_tr_dt_std, performance_te_dt, performance_te_dt_std)]
-    #util.print_table_row_performances_regression(feature_names[i], len(selected_train_X.index), len(selected_test_X.index), scores_with_sd)
+    #util_own.print_table_row_performances_regression(feature_names[i], len(selected_train_X.index), len(selected_test_X.index), scores_with_sd)
     scores_over_all_algs.append(scores_with_sd)
 
 DataViz.plot_performances_regression(['NN', 'RF','SVM', 'KNN', 'DT'], feature_names, scores_over_all_algs)

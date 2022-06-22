@@ -14,7 +14,7 @@ import time
 from pathlib import Path
 import argparse
 
-from util.VisualizeDataset import VisualizeDataset
+from util_own.VisualizeDataset_own import VisualizeDataset_own
 from Chapter4.TemporalAbstraction import NumericalAbstraction
 from Chapter4.TemporalAbstraction import CategoricalAbstraction
 from Chapter4.FrequencyAbstraction import FourierTransformation
@@ -48,7 +48,7 @@ def main():
     
 
     # Let us create our visualization class again.
-    DataViz = VisualizeDataset(__file__)
+    DataViz = VisualizeDataset_own(__file__)
 
     # Compute the number of milliseconds covered by an instance based on the first two rows
     milliseconds_per_instance = (dataset.index[1] - dataset.index[0]).microseconds/1000

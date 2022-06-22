@@ -8,9 +8,9 @@
 ##############################################################
 
 # Import the relevant classes.
-from Chapter2.CreateDataset import CreateDataset
-from util.VisualizeDataset import VisualizeDataset
-from util import util
+from Chapter2.CreateDataset import CreateDatasets
+from util_own.VisualizeDataset_own import VisualizeDataset_own
+from util_own import util_own
 from pathlib import Path
 import copy
 import os
@@ -66,7 +66,7 @@ for milliseconds_per_instance in GRANULARITIES:
     dataset = dataset.data_table
 
     # Plot the data
-    DataViz = VisualizeDataset(__file__)
+    DataViz = VisualizeDataset_own(__file__)
 
     # Boxplot
     # DataViz.plot_dataset_boxplot(dataset, ['acc_phone_x','acc_phone_y','acc_phone_z','acc_watch_x','acc_watch_y','acc_watch_z'])
@@ -83,7 +83,7 @@ for milliseconds_per_instance in GRANULARITIES:
 
 
     # And print a summary of the dataset.
-    util.print_statistics(dataset)
+    util_own.print_statistics(dataset)
     datasets.append(copy.deepcopy(dataset))
 
     # If needed, we could save the various versions of the dataset we create in the loop with logical filenames:
@@ -91,7 +91,7 @@ for milliseconds_per_instance in GRANULARITIES:
 
 
 # Make a table like the one shown in the book, comparing the two datasets produced.
-util.print_latex_table_statistics_two_datasets(datasets[0], datasets[1])
+util_own.print_latex_table_statistics_two_datasets(datasets[0], datasets[1])
 
 # Finally, store the last dataset we generated (250 ms).
 dataset.to_csv(RESULT_PATH / RESULT_FNAME)

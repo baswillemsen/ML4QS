@@ -7,7 +7,7 @@
 #                                                            #
 ##############################################################
 
-from util.VisualizeDataset import VisualizeDataset
+from util_own.VisualizeDataset_own import VisualizeDataset_own
 from Chapter7.PrepareDatasetForLearning import PrepareDatasetForLearning
 from Chapter7.Evaluation import RegressionEvaluation
 from Chapter8.LearningAlgorithmsTemporal import TemporalClassificationAlgorithms
@@ -18,7 +18,7 @@ from pandas.plotting import autocorrelation_plot
 import sys
 import copy
 import pandas as pd
-from util import util
+from util_own import util_own
 import matplotlib.pyplot as plt
 import numpy as np
 from pathlib import Path
@@ -38,7 +38,7 @@ except IOError as e:
     raise e
 
 # We'll create an instance of our visualization class to plot the results.
-DataViz = VisualizeDataset(__file__)
+DataViz = VisualizeDataset_own(__file__)
 
 # Of course we repeat some stuff from Chapter 3, namely to load the dataset
 
@@ -46,7 +46,7 @@ DataViz = VisualizeDataset(__file__)
 DATA_PATH = Path('./intermediate_datafiles/')
 DATASET_FNAME = 'chapter5_result.csv'
 
-DataViz = VisualizeDataset(__file__)
+DataViz = VisualizeDataset_own(__file__)
 
 try:
     dataset = pd.read_csv(DATA_PATH / DATASET_FNAME, index_col=0)
@@ -204,7 +204,7 @@ for i in range(0, len(possible_feature_sets)):
     
     scores_with_sd = [(overall_performance_tr_rnn, overall_performance_tr_rnn_std, overall_performance_te_rnn, overall_performance_te_rnn_std)]
     
-    util.print_table_row_performances_regression(feature_names[i], len(selected_train_X.index), len(selected_test_X.index), scores_with_sd)
+    util_own.print_table_row_performances_regression(feature_names[i], len(selected_train_X.index), len(selected_test_X.index), scores_with_sd)
     scores_over_all_algs.append(scores_with_sd)
     print('-' * 40)
 
