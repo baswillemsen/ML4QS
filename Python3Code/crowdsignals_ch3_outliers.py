@@ -7,7 +7,7 @@
 #                                                            #
 ##############################################################
 
-from util.VisualizeDataset import VisualizeDataset
+from util_own.VisualizeDataset_own import VisualizeDataset_own
 from Chapter3.OutlierDetection import DistributionBasedOutlierDetection
 from Chapter3.OutlierDetection import DistanceBasedOutlierDetection
 import sys
@@ -43,7 +43,7 @@ def main():
         raise e
 
     # We'll create an instance of our visualization class to plot the results.
-    DataViz = VisualizeDataset(__file__)
+    DataViz = VisualizeDataset_own(__file__)
 
 
 

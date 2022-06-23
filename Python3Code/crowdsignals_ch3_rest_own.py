@@ -61,14 +61,14 @@ def main():
     if FLAGS.mode == 'imputation':
         # Let us impute the missing values and plot an example.
        
-        imputed_mean_dataset = MisVal.impute_mean(copy.deepcopy(dataset), 'hr_watch_rate')       
-        imputed_median_dataset = MisVal.impute_median(copy.deepcopy(dataset), 'hr_watch_rate')
-        imputed_interpolation_dataset = MisVal.impute_interpolate(copy.deepcopy(dataset), 'hr_watch_rate')
+        imputed_mean_dataset = MisVal.impute_mean(copy.deepcopy(dataset), 'press_phone_pressure')
+        imputed_median_dataset = MisVal.impute_median(copy.deepcopy(dataset), 'press_phone_pressure')
+        imputed_interpolation_dataset = MisVal.impute_interpolate(copy.deepcopy(dataset), 'press_phone_pressure')
         
-        DataViz.plot_imputed_values(dataset, ['original', 'mean', 'median', 'interpolation'], 'hr_watch_rate',
-                                    imputed_mean_dataset['hr_watch_rate'], 
-                                    imputed_median_dataset['hr_watch_rate'],
-                                    imputed_interpolation_dataset['hr_watch_rate'])
+        DataViz.plot_imputed_values(dataset, ['original', 'mean', 'median', 'interpolation'], 'press_phone_pressure',
+                                    imputed_mean_dataset['press_phone_pressure'],
+                                    imputed_median_dataset['press_phone_pressure'],
+                                    imputed_interpolation_dataset['press_phone_pressure'])
 
     elif FLAGS.mode == 'kalman':
         # Using the result from Chapter 2, let us try the Kalman filter on the light_phone_lux attribute and study the result.

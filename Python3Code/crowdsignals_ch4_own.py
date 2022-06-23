@@ -92,7 +92,11 @@ def main():
 
         selected_predictor_cols = [c for c in dataset.columns if not 'label' in c]
 
+        dataset = NumAbs.abstract_numerical(dataset, selected_predictor_cols, ws, 'mean')
+        dataset = NumAbs.abstract_numerical(dataset, selected_predictor_cols, ws, 'max')
+        dataset = NumAbs.abstract_numerical(dataset, selected_predictor_cols, ws, 'min')
         dataset = NumAbs.abstract_numerical(dataset, selected_predictor_cols, ws, 'median')
+        dataset = NumAbs.abstract_numerical(dataset, selected_predictor_cols, ws, 'std')
         dataset = NumAbs.abstract_numerical(dataset, selected_predictor_cols, ws, 'slope')
         # TODO: Add your own aggregation methods here
         

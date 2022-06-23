@@ -64,7 +64,7 @@ print('Test set length is: ', len(test_X.index))
 # Select subsets of the features that we will consider:
 
 basic_features = ['acc_phone_x','acc_phone_y','acc_phone_z','linear_acc_phone_x','linear_acc_phone_y','linear_acc_phone_z','gyr_phone_x','gyr_phone_y','gyr_phone_z',
-                  'mag_phone_x','mag_phone_y','mag_phone_z','loc_phone_latitude','loc_phone_longitude','loc_phone_height','press_phone_pressure','press_phone_amplitudes']
+                  'mag_phone_x','mag_phone_y','mag_phone_z']
 pca_features = ['pca_1','pca_2','pca_3','pca_4','pca_5','pca_6','pca_7']
 time_features = [name for name in dataset.columns if '_temp_' in name]
 freq_features = [name for name in dataset.columns if (('_freq' in name) or ('_pse' in name))]
@@ -94,10 +94,14 @@ DataViz.plot_xy(x=[range(1, N_FORWARD_SELECTION+1)], y=[ordered_scores],
                 xlabel='number of features', ylabel='accuracy')
 
 
-# based on python2 features, slightly different. 
+# based on python2 features, slightly different.
 # selected_features = ['acc_phone_y_freq_0.0_Hz_ws_40', 'press_phone_pressure_temp_mean_ws_120', 'gyr_phone_x_temp_std_ws_120',
 #                      'mag_watch_y_pse', 'mag_phone_z_max_freq', 'gyr_watch_y_freq_weighted', 'gyr_phone_y_freq_1.0_Hz_ws_40',
 #                      'acc_phone_x_freq_1.9_Hz_ws_40', 'mag_watch_z_freq_0.9_Hz_ws_40', 'acc_watch_y_freq_0.5_Hz_ws_40']
+selected_features = ['pca_1_temp_max_ws_300', 'pca_2_temp_mean_ws_300', 'mag_phone_z_freq_0.0_Hz_ws_100',
+                     'mag_phone_z_freq_0.0_Hz_ws_100', 'pca_5_temp_mean_ws_300', 'acc_phone_z_temp_mean_ws_300', 'pca_1_temp_mean_ws_300',
+                     'gyr_phone_z_freq_2.7_Hz_ws_100', 'gyr_phone_y_freq_0.5_Hz_ws_100', 'acc_phone_x_freq_0.1_Hz_ws_100',
+                     'mag_phone_z_freq_3.6_Hz_ws_100', 'gyr_phone_y_freq_weighted']
 
 # # # Let us first study the impact of regularization and model complexity: does regularization prevent overfitting?
 
@@ -129,7 +133,7 @@ for reg_param in reg_parameters:
     performance_training.append(performance_tr/N_REPEATS_NN)
     performance_test.append(performance_te/N_REPEATS_NN)
 DataViz.plot_xy(x=[reg_parameters, reg_parameters], y=[performance_training, performance_test], method='semilogx',
-                xlabel='regularization parameter value', ylabel='accuracy', ylim=[0.95, 1.01],
+                xlabel='regularization parameter value', ylabel='accuracy',
                 names=['training', 'test'], line_styles=['r-', 'b:'])
 
 #Second, let us consider the influence of certain parameter settings for the tree model. (very related to the
@@ -139,14 +143,14 @@ leaf_settings = [1,2,5,10]
 performance_training = []
 performance_test = []
 
-# for no_points_leaf in leaf_settings:
-#
-#     class_train_y, class_test_y, class_train_prob_y, class_test_prob_y = learner.decision_tree(
-#         train_X[selected_features], train_y, test_X[selected_features], min_samples_leaf=no_points_leaf,
-#         gridsearch=False, print_model_details=False)
-#
-#     performance_training.append(eval.accuracy(train_y, class_train_y))
-#     performance_test.append(eval.accuracy(test_y, class_test_y))
+for no_points_leaf in leaf_settings:
+
+    class_train_y, class_test_y, class_train_prob_y, class_test_prob_y = learner.decision_tree(
+        train_X[selected_features], train_y, test_X[selected_features], min_samples_leaf=no_points_leaf,
+        gridsearch=False, print_model_details=False)
+
+    performance_training.append(eval.accuracy(train_y, class_train_y))
+    performance_test.append(eval.accuracy(test_y, class_test_y))
 
 DataViz.plot_xy(x=[leaf_settings, leaf_settings], y=[performance_training, performance_test],
                 xlabel='minimum number of points per leaf', ylabel='accuracy',
@@ -155,8 +159,8 @@ DataViz.plot_xy(x=[leaf_settings, leaf_settings], y=[performance_training, perfo
 # So yes, it is important :) Therefore we perform grid searches over the most important parameters, and do so by means
 # of cross validation upon the training set.
 
-possible_feature_sets = [basic_features, features_after_chapter_3, features_after_chapter_4, features_after_chapter_5]
-feature_names = ['initial set', 'Chapter 3', 'Chapter 4', 'Chapter 5']
+possible_feature_sets = [basic_features, features_after_chapter_3, features_after_chapter_4, features_after_chapter_5, selected_features]
+feature_names = ['initial set', 'Chapter 3', 'Chapter 4', 'Chapter 5', 'Selected features']
 N_KCV_REPEATS = 5
 
 
@@ -247,14 +251,14 @@ DataViz.plot_performances_classification(['NN', 'RF','SVM', 'KNN', 'DT', 'NB'], 
 # # And we study two promising ones in more detail. First, let us consider the decision tree, which works best with the
 # # selected features.
 
-# class_train_y, class_test_y, class_train_prob_y, class_test_prob_y = learner.decision_tree(train_X[selected_features], train_y, test_X[selected_features],
-#                                                                                            gridsearch=True,
-#                                                                                            print_model_details=True, export_tree_path=EXPORT_TREE_PATH)
-#
-# class_train_y, class_test_y, class_train_prob_y, class_test_prob_y = learner.random_forest(
-#     train_X[selected_features], train_y, test_X[selected_features],
-#     gridsearch=True, print_model_details=True)
-#
-# test_cm = eval.confusion_matrix(test_y, class_test_y, class_train_prob_y.columns)
-#
-# DataViz.plot_confusion_matrix(test_cm, class_train_prob_y.columns, normalize=False)
+class_train_y, class_test_y, class_train_prob_y, class_test_prob_y = learner.decision_tree(train_X[selected_features], train_y, test_X[selected_features],
+                                                                                           gridsearch=True,
+                                                                                           print_model_details=True, export_tree_path=EXPORT_TREE_PATH)
+
+class_train_y, class_test_y, class_train_prob_y, class_test_prob_y = learner.random_forest(
+    train_X[selected_features], train_y, test_X[selected_features],
+    gridsearch=True, print_model_details=True)
+
+test_cm = eval.confusion_matrix(test_y, class_test_y, class_train_prob_y.columns)
+
+DataViz.plot_confusion_matrix(test_cm, class_train_prob_y.columns, normalize=False)

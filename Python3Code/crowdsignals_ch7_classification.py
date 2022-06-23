@@ -94,8 +94,14 @@ DataViz.plot_xy(x=[range(1, N_FORWARD_SELECTION+1)], y=[ordered_scores],
                 xlabel='number of features', ylabel='accuracy')
 
 
-# based on python2 features, slightly different. 
-selected_features = ['mag_phone_z_max_freq']
+# based on python2 features, slightly different.
+selected_features = ['acc_phone_y_freq_0.0_Hz_ws_40', 'press_phone_pressure_temp_mean_ws_120', 'gyr_phone_x_temp_std_ws_120',
+                     'mag_watch_y_pse', 'mag_phone_z_max_freq', 'gyr_watch_y_freq_weighted', 'gyr_phone_y_freq_1.0_Hz_ws_40',
+                     'acc_phone_x_freq_1.9_Hz_ws_40', 'mag_watch_z_freq_0.9_Hz_ws_40', 'acc_watch_y_freq_0.5_Hz_ws_40']
+# selected_features = ['pca_1_temp_max_ws_300', 'pca_2_temp_mean_ws_300', 'mag_phone_z_freq_0.0_Hz_ws_100',
+#                      'mag_phone_z_freq_0.0_Hz_ws_100', 'pca_5_temp_mean_ws_300', 'acc_phone_z_temp_mean_ws_300', 'pca_1_temp_mean_ws_300',
+#                      'gyr_phone_z_freq_2.7_Hz_ws_100', 'gyr_phone_y_freq_0.5_Hz_ws_100', 'acc_phone_x_freq_0.1_Hz_ws_100',
+#                      'mag_phone_z_freq_3.6_Hz_ws_100', 'gyr_phone_y_freq_weighted']
 
 # # # Let us first study the impact of regularization and model complexity: does regularization prevent overfitting?
 
