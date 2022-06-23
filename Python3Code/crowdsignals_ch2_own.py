@@ -8,7 +8,7 @@
 ##############################################################
 
 # Import the relevant classes.
-from Chapter2.CreateDataset import CreateDatasets
+from Chapter2.CreateDataset import CreateDataset
 from util_own.VisualizeDataset_own import VisualizeDataset_own
 from util_own import util_own
 from pathlib import Path
