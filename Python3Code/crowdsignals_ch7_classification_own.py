@@ -30,7 +30,7 @@ from util_own.VisualizeDataset_own import VisualizeDataset_own
 
 # Read the result from the previous chapter, and make sure the index is of the type datetime.
 DATA_PATH = Path('./intermediate_datafiles_own/')
-DATASET_FNAME = 'chapter5_result_own.csv'
+DATASET_FNAME = 'chapter5_result_own_subset.csv'
 RESULT_FNAME = 'chapter7_classification_result_own.csv'
 EXPORT_TREE_PATH = Path('./figures_own/crowdsignals_ch7_classification/')
 
